@@ -12,6 +12,7 @@
 #include <string>
 
 #include "common/exception.h"
+#include "common/logger.h"
 #include "common/rid.h"
 #include "storage/index/b_plus_tree.h"
 #include "storage/page/header_page.h"
@@ -270,7 +271,35 @@ void BPLUSTREE_TYPE::RemoveFromFile(const std::string &file_name, Transaction *t
 }
 
 /**
- * This method is used for debug only, You don't  need to modify
+ * This method is used for debug only, You don't need to modify
+ */
+INDEX_TEMPLATE_ARGUMENTS
+void BPLUSTREE_TYPE::Draw(BufferPoolManager *bpm, const std::string &outf) {
+  if (IsEmpty()) {
+    LOG_WARN("Draw an empty tree");
+    return;
+  }
+  std::ofstream out(outf);
+  out << "digraph G {" << std::endl;
+  ToGraph(reinterpret_cast<BPlusTreePage *>(bpm->FetchPage(root_page_id_)->GetData()), bpm, out);
+  out << "}" << std::endl;
+  out.close();
+}
+
+/**
+ * This method is used for debug only, You don't need to modify
+ */
+INDEX_TEMPLATE_ARGUMENTS
+void BPLUSTREE_TYPE::Print(BufferPoolManager *bpm) {
+  if (IsEmpty()) {
+    LOG_WARN("Print an empty tree");
+    return;
+  }
+  ToString(reinterpret_cast<BPlusTreePage *>(bpm->FetchPage(root_page_id_)->GetData()), bpm);
+}
+
+/**
+ * This method is used for debug only, You don't need to modify
  * @tparam KeyType
  * @tparam ValueType
  * @tparam KeyComparator
@@ -293,7 +322,8 @@ void BPLUSTREE_TYPE::ToGraph(BPlusTreePage *page, BufferPoolManager *bpm, std::o
     // Print data
     out << "<TR><TD COLSPAN=\"" << leaf->GetSize() << "\">P=" << leaf->GetPageId() << "</TD></TR>\n";
     out << "<TR><TD COLSPAN=\"" << leaf->GetSize() << "\">"
-        << "max_size=" << leaf->GetMaxSize() << ",min_size=" << leaf->GetMinSize() << "</TD></TR>\n";
+        << "max_size=" << leaf->GetMaxSize() << ",min_size=" << leaf->GetMinSize() << ",size=" << leaf->GetSize()
+        << "</TD></TR>\n";
     out << "<TR>";
     for (int i = 0; i < leaf->GetSize(); i++) {
       out << "<TD>" << leaf->KeyAt(i) << "</TD>\n";
@@ -323,7 +353,8 @@ void BPLUSTREE_TYPE::ToGraph(BPlusTreePage *page, BufferPoolManager *bpm, std::o
     // Print data
     out << "<TR><TD COLSPAN=\"" << inner->GetSize() << "\">P=" << inner->GetPageId() << "</TD></TR>\n";
     out << "<TR><TD COLSPAN=\"" << inner->GetSize() << "\">"
-        << "max_size=" << inner->GetMaxSize() << ",min_size=" << inner->GetMinSize() << "</TD></TR>\n";
+        << "max_size=" << inner->GetMaxSize() << ",min_size=" << inner->GetMinSize() << ",size=" << inner->GetSize()
+        << "</TD></TR>\n";
     out << "<TR>";
     for (int i = 0; i < inner->GetSize(); i++) {
       out << "<TD PORT=\"p" << inner->ValueAt(i) << "\">";
