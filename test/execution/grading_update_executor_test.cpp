@@ -13,7 +13,7 @@
 #include "execution/executors/insert_executor.h"
 #include "execution/executors/update_executor.h"
 #include "executor_test_util.h"  // NOLINT
-#include "test_util.h"                   // NOLINT
+#include "test_util.h"           // NOLINT
 
 namespace bustub {
 
@@ -30,7 +30,7 @@ using BigintValueType = RID;
 using BigintComparatorType = GenericComparator<BIGINT_SIZE>;
 using BigintHashFunctionType = HashFunction<BigintKeyType>;
 
-# define GradingExecutorTest ExecutorTest
+#define GradingExecutorTest ExecutorTest
 
 // Addition update
 TEST_F(GradingExecutorTest, UpdateTableAdd) {
@@ -343,13 +343,15 @@ TEST_F(GradingExecutorTest, UpdateIntegrated) {
 }
 
 // Sequential add updates with N transactions
-TEST_F(GradingExecutorTest, DISABLED_SequentialUpdateAdd) {
+TEST_F(GradingExecutorTest, SequentialUpdateAdd) {
   constexpr const auto n_tasks = 10UL;
 
   // construct a sequential scan of the table
   auto *table_info = GetExecutorContext()->GetCatalog()->GetTable("test_3");
   auto &schema = table_info->schema_;
-  auto col_a = MakeColumnValueExpression(schema, 0, "col_a");
+  // the next line is correct or not ?
+  /* auto col_a = MakeColumnValueExpression(schema, 0, "col_a"); */
+  auto col_a = MakeColumnValueExpression(schema, 0, "colA");
   auto col_b = MakeColumnValueExpression(schema, 0, "colB");
   auto *out_schema = MakeOutputSchema({{"colA", col_a}, {"colB", col_b}});
   SeqScanPlanNode scan_plan{out_schema, nullptr, table_info->oid_};

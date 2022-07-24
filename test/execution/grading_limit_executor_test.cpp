@@ -12,7 +12,7 @@
 
 #include "execution/executors/limit_executor.h"
 #include "executor_test_util.h"  // NOLINT
-#include "test_util.h"                   // NOLINT
+#include "test_util.h"           // NOLINT
 
 namespace bustub {
 
@@ -29,7 +29,7 @@ using BigintValueType = RID;
 using BigintComparatorType = GenericComparator<BIGINT_SIZE>;
 using BigintHashFunctionType = HashFunction<BigintKeyType>;
 
-# define GradingExecutorTest ExecutorTest
+#define GradingExecutorTest ExecutorTest
 
 // SELECT colA, colB FROM test_3 LIMIT 10
 TEST_F(GradingExecutorTest, BasicLimit) {

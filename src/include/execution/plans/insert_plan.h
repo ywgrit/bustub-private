@@ -77,7 +77,9 @@ class InsertPlanNode : public AbstractPlanNode {
   }
 
  private:
-  /** The raw values embedded in this insert plan (may be empty) */
+  /** The raw values embedded in this insert plan (may be empty). If std::vector<const AbstractPlanNode *> children_ is
+   * empty, then raw_values_ can be inserted to table_ directly, otherwise the raw_values_ is empty, and the tuples
+   * produced by children_PlanNodes will be inserted to table_ after childrenn_Executors be executed. */
   std::vector<std::vector<Value>> raw_values_;
   /** The table to be inserted into. */
   table_oid_t table_oid_;

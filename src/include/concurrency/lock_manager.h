@@ -71,6 +71,13 @@ class LockManager {
    */
 
   /**
+   * Insert a request on RID to LockRequestQueue.
+   * @param lock_queue the LockRequestQueue insert request into
+   * @param txn_id the id of transaction which request to lock on a tuple
+   */
+  void InsertRequest(LockRequestQueue *lock_queue, txn_id_t txn_id, LockMode mode);
+
+  /**
    * Acquire a lock on RID in shared mode. See [LOCK_NOTE] in header file.
    * @param txn the transaction requesting the shared lock
    * @param rid the RID to be locked in shared mode

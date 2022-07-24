@@ -14,8 +14,8 @@
 
 #include "execution/executors/distinct_executor.h"
 #include "executor_test_util.h"  // NOLINT
-#include "test_util.h"                   // NOLINT
 #include "gtest/gtest.h"
+#include "test_util.h"  // NOLINT
 
 namespace bustub {
 
@@ -32,7 +32,7 @@ using BigintValueType = RID;
 using BigintComparatorType = GenericComparator<BIGINT_SIZE>;
 using BigintHashFunctionType = HashFunction<BigintKeyType>;
 
-# define GradingExecutorTest ExecutorTest
+#define GradingExecutorTest ExecutorTest
 
 TEST_F(GradingExecutorTest, DistinctEmptyTable) {
   auto *table_info = GetExecutorContext()->GetCatalog()->GetTable("empty_table");

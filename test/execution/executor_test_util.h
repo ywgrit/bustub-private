@@ -31,7 +31,6 @@
 #include "execution/plans/seq_scan_plan.h"
 #include "gtest/gtest.h"
 
-
 namespace bustub {
 
 /**

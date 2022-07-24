@@ -108,6 +108,7 @@ void TransactionManager::Abort(Transaction *txn) {
   global_txn_latch_.RUnlock();
 }
 
+// can block txn which is already be a state of read ?
 void TransactionManager::BlockAllTransactions() { global_txn_latch_.WLock(); }
 
 void TransactionManager::ResumeTransactions() { global_txn_latch_.WUnlock(); }

@@ -68,7 +68,7 @@ class TableWriteRecord {
 
   RID rid_;
   WType wtype_;
-  /** The tuple is only used for the update operation. */
+  /** The tuple is only used for the update operation, this is old_tuple if wtype == UPDATE. */
   Tuple tuple_;
   /** The table heap specifies which table this write record is for. */
   TableHeap *table_;

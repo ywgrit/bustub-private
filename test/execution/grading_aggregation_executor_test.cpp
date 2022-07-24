@@ -16,7 +16,7 @@
 
 #include "execution/executors/aggregation_executor.h"
 #include "executor_test_util.h"  // NOLINT
-#include "test_util.h"                   // NOLINT
+#include "test_util.h"           // NOLINT
 
 namespace bustub {
 
@@ -33,7 +33,7 @@ using BigintValueType = RID;
 using BigintComparatorType = GenericComparator<BIGINT_SIZE>;
 using BigintHashFunctionType = HashFunction<BigintKeyType>;
 
-# define GradingExecutorTest ExecutorTest
+#define GradingExecutorTest ExecutorTest
 
 // SELECT COUNT(colB) from test_3;
 TEST_F(GradingExecutorTest, AggregationCount) {

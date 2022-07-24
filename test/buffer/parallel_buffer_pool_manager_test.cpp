@@ -1005,7 +1005,6 @@ TEST(ParallelBufferPoolManagerTest, RoundRobinNewPage) {
     EXPECT_NE(nullptr, bpm->NewPage(&page_id_temp));
     EXPECT_EQ(i, page_id_temp);
   }
-  
 
   // Scenario: Once the buffer pool is full, we should not be able to create any new pages.
   for (size_t i = 10; i < 30; i++) {
@@ -1016,7 +1015,6 @@ TEST(ParallelBufferPoolManagerTest, RoundRobinNewPage) {
   // returns the correct page_id for that BPMI.
   page_id_t unpin_page = 6;
   bpm->UnpinPage(unpin_page, false);
-
 
   EXPECT_NE(nullptr, bpm->NewPage(&page_id_temp));
   EXPECT_EQ(unpin_page + num_instances, page_id_temp);

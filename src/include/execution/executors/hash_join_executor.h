@@ -13,12 +13,36 @@
 #pragma once
 
 #include <memory>
+#include <unordered_map>
 #include <utility>
+#include <vector>
 
+#include "common/util/hash_util.h"
 #include "execution/executor_context.h"
 #include "execution/executors/abstract_executor.h"
+#include "execution/expressions/abstract_expression.h"
 #include "execution/plans/hash_join_plan.h"
 #include "storage/table/tuple.h"
+
+namespace bustub {
+struct HashKey {
+  Value key_;
+  bool operator==(const HashKey &hashkey) const { return key_.CompareEquals(hashkey.key_) == CmpBool::CmpTrue; }
+};
+}  // namespace bustub
+
+namespace std {
+template <>
+struct hash<bustub::HashKey> {
+  size_t operator()(const bustub::HashKey &hashkey) const {
+    size_t key_hash = 0;
+    if (!hashkey.key_.IsNull()) {
+      key_hash = bustub::HashUtil::CombineHashes(key_hash, bustub::HashUtil::HashValue(&hashkey.key_));
+    }
+    return key_hash;
+  }
+};
+}  // namespace std
 
 namespace bustub {
 
@@ -54,6 +78,16 @@ class HashJoinExecutor : public AbstractExecutor {
  private:
   /** The NestedLoopJoin plan node to be executed. */
   const HashJoinPlanNode *plan_;
+  /** The left child executor */
+  std::unique_ptr<AbstractExecutor> left_executor_;
+  /** The right child executor */
+  std::unique_ptr<AbstractExecutor> right_executor_;
+  /** Map from key to tuples */
+  std::unordered_map<HashKey, std::vector<Tuple>> hashtable_;  // HashKey need a hash function
+  /** Result tuples of join of left_tuples and right_tuples */
+  std::vector<Tuple> result_tuples_;
+  /** Id of result_tuples */
+  uint32_t id_;
 };
 
 }  // namespace bustub

@@ -15,7 +15,7 @@
 #include "execution/executors/nested_loop_join_executor.h"
 #include "execution/plans/mock_scan_plan.h"
 #include "executor_test_util.h"  // NOLINT
-#include "test_util.h"                   // NOLINT
+#include "test_util.h"           // NOLINT
 
 namespace bustub {
 
@@ -32,7 +32,7 @@ using BigintValueType = RID;
 using BigintComparatorType = GenericComparator<BIGINT_SIZE>;
 using BigintHashFunctionType = HashFunction<BigintKeyType>;
 
-# define GradingExecutorTest ExecutorTest
+#define GradingExecutorTest ExecutorTest
 
 // SELECT test_4.colA, test_4.colB, test_6.colA, test_6.colB FROM test_4 JOIN test_6 ON test_4.colA = test_6.colA
 TEST_F(GradingExecutorTest, NestedLoopJoin) {

@@ -270,7 +270,7 @@ void ScaleTestCall() {
 
   //  Verify Merging Worked
   assert(ht.GetGlobalDepth() < 8);
-  std::cout << ht.GetGlobalDepth() <<std::endl;
+  std::cout << ht.GetGlobalDepth() << std::endl;
   ht.VerifyIntegrity();
 
   disk_manager->ShutDown();

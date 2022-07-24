@@ -34,7 +34,7 @@ using BigintValueType = RID;
 using BigintComparatorType = GenericComparator<BIGINT_SIZE>;
 using BigintHashFunctionType = HashFunction<BigintKeyType>;
 
-# define GradingExecutorTest ExecutorTest
+#define GradingExecutorTest ExecutorTest
 
 // INSERT INTO empty_table2 VALUES (100, 10), (101, 11), (102, 12)
 TEST_F(GradingExecutorTest, RawInsert1) {
